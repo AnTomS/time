@@ -3,20 +3,20 @@ package ru.netology
 
 fun main() {
     print("Введите время, как давно пользователь был онлайн, в секундах: ")
-    val timeInSite: Int = readln().toInt()
+    val timeInOnline: Int = readln().toInt()
 
-    val secondsToMinutes: Int = timeInSite / 60
+    val secondsToMinutes: Int = timeInOnline / 60
     val minutesToHours: Int = secondsToMinutes / 60
 
     print("Введите имя пользователя: ")
     val name: String = readln()
 
 
-    fun timeWithOne(): Boolean =
+    fun ruleWithOne(): Boolean =
         (secondsToMinutes == 1 || secondsToMinutes % 10 == 1 && secondsToMinutes % 100 != 11) ||
                 (minutesToHours == 1 || minutesToHours % 10 == 1 && minutesToHours % 100 != 11)
 
-    fun timeWithTwoThreeFour(): Boolean = (secondsToMinutes < 5 && secondsToMinutes != 0 ||
+    fun ruleWithTwoThreeFour(): Boolean = (secondsToMinutes < 5 && secondsToMinutes != 0 ||
             secondsToMinutes % 10 == 2 && secondsToMinutes != 12 ||
             secondsToMinutes % 10 == 3 && secondsToMinutes != 13 ||
             secondsToMinutes % 10 == 4 && secondsToMinutes != 14) ||
@@ -26,18 +26,18 @@ fun main() {
                     minutesToHours % 10 == 4 && minutesToHours != 14)
 
     fun timeToMinute(): String =
-        if (timeWithOne()) "$secondsToMinutes минуту назад"
-        else if (timeWithTwoThreeFour()) "$secondsToMinutes минуты назад"
+        if (ruleWithOne()) "$secondsToMinutes минуту назад"
+        else if (ruleWithTwoThreeFour()) "$secondsToMinutes минуты назад"
         else "$secondsToMinutes минут назад"
 
     fun timeToHour(): String =
-        if (timeWithOne()) "$minutesToHours час назад"
-        else if (timeWithTwoThreeFour()) "$minutesToHours часа назад"
+        if (ruleWithOne()) "$minutesToHours час назад"
+        else if (ruleWithTwoThreeFour()) "$minutesToHours часа назад"
         else "$minutesToHours часов назад"
 
 
     fun agoToText() {
-        val allTime = when (timeInSite) {
+        val allTime = when (timeInOnline) {
             in 0..60 -> "$name в сети только что"
             in 61..3_600 -> "$name в сети ${timeToMinute()}"
             in 3_601..86_400 -> "$name в сети ${timeToHour()}"
